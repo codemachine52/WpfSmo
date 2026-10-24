@@ -1,0 +1,136 @@
+<Window x:Class="WpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Калькулятор СМО" Height="720" Width="940" MinHeight="500" MinWidth="800"
+        WindowStartupLocation="CenterScreen" FontSize="14">
+    <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="430"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Зона ввода -->
+        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" Margin="0,0,15,0">
+            <StackPanel Margin="0,0,10,0">
+
+                <TextBlock Text="Тип СМО:" FontWeight="Bold" Margin="0,0,0,5"/>
+                <ComboBox x:Name="CmbSystemType" SelectionChanged="InputModeChanged" Margin="0,0,0,15" SelectedIndex="0">
+                    <ComboBoxItem Content="Одноканальная с отказами"/>
+                    <ComboBoxItem Content="Многоканальная с отказами"/>
+                    <ComboBoxItem Content="Одноканальная с неограниченной очередью"/>
+                    <ComboBoxItem Content="Многоканальная с неограниченной очередью"/>
+                    <ComboBoxItem Content="Одноканальная с ограниченной очередью"/>
+                    <ComboBoxItem Content="Многоканальная с ограниченной очередью"/>
+                </ComboBox>
+
+                <Grid x:Name="GridN" Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="230"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Число каналов (n):" VerticalAlignment="Center"/>
+                    <TextBox x:Name="TxtN" Grid.Column="1" Padding="2"/>
+                </Grid>
+
+                <Grid x:Name="GridM" Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="230"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Макс. длина очереди (m):" VerticalAlignment="Center"/>
+                    <TextBox x:Name="TxtM" Grid.Column="1" Padding="2"/>
+                </Grid>
+
+                <!-- Входящий поток заявок -->
+                <TextBlock Text="Входящий поток заявок задан как:" FontWeight="Bold" Margin="0,10,0,5"/>
+                <ComboBox x:Name="CmbLambdaInputType" SelectionChanged="InputModeChanged" Margin="0,0,0,10" SelectedIndex="0">
+                    <ComboBoxItem Content="Интенсивность (λ)"/>
+                    <ComboBoxItem Content="Среднее время между заявками (t_пр)"/>
+                </ComboBox>
+
+                <Grid x:Name="GridLambda" Margin="0,0,0,15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="230"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="90"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Интенсивность (λ):" VerticalAlignment="Center"/>
+                    <TextBox x:Name="TxtLambda" Grid.Column="1" Padding="2" Margin="0,0,10,0"/>
+                    <ComboBox x:Name="CmbLambdaUnit" Grid.Column="2" SelectedIndex="0">
+                        <ComboBoxItem Content="в час"/>
+                        <ComboBoxItem Content="в мин"/>
+                        <ComboBoxItem Content="в сек"/>
+                    </ComboBox>
+                </Grid>
+
+                <Grid x:Name="GridTpr" Margin="0,0,0,15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="230"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="90"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Время между заявками (t_пр):" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                    <TextBox x:Name="TxtTpr" Grid.Column="1" Padding="2" Margin="0,0,10,0"/>
+                    <ComboBox x:Name="CmbTprUnit" Grid.Column="2" SelectedIndex="0">
+                        <ComboBoxItem Content="мин"/>
+                        <ComboBoxItem Content="час"/>
+                        <ComboBoxItem Content="сек"/>
+                    </ComboBox>
+                </Grid>
+
+                <!-- Поток обслуживания -->
+                <TextBlock Text="Обслуживание задано как:" FontWeight="Bold" Margin="0,0,0,5"/>
+                <ComboBox x:Name="CmbMuInputType" SelectionChanged="InputModeChanged" Margin="0,0,0,10" SelectedIndex="0">
+                    <ComboBoxItem Content="Интенсивность (μ)"/>
+                    <ComboBoxItem Content="Время обслуживания (t_обс)"/>
+                </ComboBox>
+
+                <Grid x:Name="GridMu" Margin="0,0,0,15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="230"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="90"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Интенсивность (μ):" VerticalAlignment="Center"/>
+                    <TextBox x:Name="TxtMu" Grid.Column="1" Padding="2" Margin="0,0,10,0"/>
+                    <ComboBox x:Name="CmbMuUnit" Grid.Column="2" SelectedIndex="0">
+                        <ComboBoxItem Content="в час"/>
+                        <ComboBoxItem Content="в мин"/>
+                        <ComboBoxItem Content="в сек"/>
+                    </ComboBox>
+                </Grid>
+
+                <Grid x:Name="GridTobs" Margin="0,0,0,15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="230"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="90"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Время обслуживания (t_обс):" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                    <TextBox x:Name="TxtTobs" Grid.Column="1" Padding="2" Margin="0,0,10,0"/>
+                    <ComboBox x:Name="CmbTobsUnit" Grid.Column="2" SelectedIndex="0">
+                        <ComboBoxItem Content="мин"/>
+                        <ComboBoxItem Content="час"/>
+                        <ComboBoxItem Content="сек"/>
+                    </ComboBox>
+                </Grid>
+
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                    <Button Content="Рассчитать" Click="BtnCalculate_Click" Padding="10,8" Width="190" FontWeight="Bold" Margin="0,0,10,0"/>
+                    <Button Content="Выгрузить в Excel" Click="BtnExport_Click" Padding="10,8" Width="190"/>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Зона вывода -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Результаты расчётов:" FontWeight="Bold" Margin="0,0,0,5"/>
+            <TextBox x:Name="TxtResults" Grid.Row="1" IsReadOnly="True" TextWrapping="Wrap"
+                     VerticalScrollBarVisibility="Auto" FontFamily="Consolas" Padding="10" Background="#F9F9F9"/>
+        </Grid>
+    </Grid>
+</Window>
